@@ -11,22 +11,29 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Example Data -->
-        <tr class="hover:bg-gray-100">
-          <td class="py-4 px-6 text-gray-700">1</td>
-          <td class="py-4 px-6 text-gray-700">John Doe</td>
-          <td class="py-4 px-6 text-gray-700">john@example.com</td>
-          <td class="py-4 px-6 text-gray-700">123 Main St, City</td>
-          <td class="py-4 px-6 text-gray-700">+123456789</td>
-          <td class="py-4 px-6 text-center">
-            <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded">
-              Edit
-            </button>
-            <button class="bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-3 rounded">
+      @foreach($employees as $employee)
+      <tr class="hover:bg-gray-100">
+        <td class="py-4 px-6 text-gray-700">{{ $employee->id }}</td>
+        <td class="py-4 px-6 text-gray-700">{{ $employee->name }}</td>
+        <td class="py-4 px-6 text-gray-700">{{ $employee->email }}</td>
+        <td class="py-4 px-6 text-gray-700">{{ $employee->address }}</td>
+        <td class="py-4 px-6 text-gray-700">{{ $employee->phone }}</td>
+        <td class="py-4 px-6 text-center">
+          <a href="{{ route('employees.edit', $employee->id) }}" 
+             class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded">
+            Edit
+          </a>
+          <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="inline-block">
+            @csrf
+            @method('DELETE')
+            <button type="submit" 
+                    class="bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-3 rounded">
               Delete
             </button>
-          </td>
-        </tr>
+          </form>
+        </td>
+      </tr>
+      @endforeach
       </tbody>
     </table>
   </div>

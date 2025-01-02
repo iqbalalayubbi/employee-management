@@ -8,12 +8,11 @@ use Illuminate\View\Component;
 
 class Table extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $employees;
+
+    public function __construct($employees)
     {
-        //
+        $this->employees = $employees;
     }
 
     /**
