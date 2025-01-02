@@ -27,11 +27,11 @@
         <td class="py-4 px-6 text-gray-700">{{ $salary->loan }}</td>
         <td class="py-4 px-6 text-gray-700">{{ $salary->total_salary }}</td>
         <td class="py-4 px-6 text-center">
-          <a href="{{ route('employees.edit', $salary->id) }}" 
+          <a href="{{ route('employees-salaries.edit', $salary->id) }}" 
              class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded">
             Edit
           </a>
-          <form action="{{ route('employees.destroy', $salary->id) }}" method="POST" class="inline-block">
+          <form action="{{ route('employees-salaries.destroy', $salary->id) }}" method="POST" class="inline-block">
             @csrf
             @method('DELETE')
             <button type="submit" 

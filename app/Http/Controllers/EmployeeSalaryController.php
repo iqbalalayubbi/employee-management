@@ -14,7 +14,7 @@ class EmployeeSalaryController extends Controller
     public function index()
     {
         $salaries = EmployeeSalary::with('employee')->get();
-        return view('employees.salaries.index', compact('salaries'));
+        return view('employees-salaries.index', compact('salaries'));
     }
 
     /**
@@ -23,7 +23,7 @@ class EmployeeSalaryController extends Controller
     public function create()
     {
         $employees = Employee::all();
-        return view('employees.salaries.create', compact('employees'));
+        return view('employees-salaries.create', compact('employees'));
     }
 
     /**
@@ -59,24 +59,50 @@ class EmployeeSalaryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmployeeSalary $employeeSalary)
+    public function edit(EmployeeSalary $id)
     {
-        //
+        // dd($employeeSalary->id);
+        $employeeSalary = EmployeeSalary::findOrFail($id);
+        $employees = Employee::all();
+
+        return view('employees-salaries.edit', compact('employeeSalary', 'employees'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EmployeeSalary $employeeSalary)
-    {
-        //
-    }
+    public function update(Request $request, $id)
+{
+    // Validasi data yang dikirimkan
+    $validated = $request->validate([
+        'employee_id' => 'required|exists:employees,id',
+        'month' => 'required|string',
+        'year' => 'required|integer',
+        'basic_salary' => 'required|numeric',
+        'bonus' => 'required|numeric',
+        'bpjs' => 'required|numeric',
+        'jp' => 'required|numeric',
+        'loan' => 'required|numeric',
+        'total_salary' => 'required|numeric',
+    ]);
+
+    // Mencari salary berdasarkan ID
+    $salary = EmployeeSalary::findOrFail($id);
+
+    // Update data salary dengan data baru
+    $salary->update($validated);
+
+    // Redirect setelah update
+    return redirect()->route('employees-salaries.index')->with('success', 'Salary data updated successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(EmployeeSalary $employeeSalary)
     {
-        //
+        $employeeSalary->delete();
+        return redirect()->route('employees-salaries.index')->with('success', 'Salary data deleted successfully');
     }
 }
