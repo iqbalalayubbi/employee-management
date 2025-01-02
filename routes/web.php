@@ -5,8 +5,8 @@ use App\Http\Controllers\EmployeePresenceController;
 use App\Http\Controllers\EmployeeSalaryController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource("employee", EmployeeController::class);
-Route::resource("employee/presence", EmployeePresenceController::class);
-Route::resource("employee/salary", EmployeeSalaryController::class);
+Route::resource("employees", EmployeeController::class);
+Route::resource("employees/presence", EmployeePresenceController::class);
+Route::resource("employees/salary", EmployeeSalaryController::class);
 
 
