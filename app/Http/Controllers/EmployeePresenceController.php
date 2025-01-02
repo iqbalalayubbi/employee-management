@@ -12,7 +12,8 @@ class EmployeePresenceController extends Controller
      */
     public function index()
     {
-        //
+        $presences = EmployeePresence::with('employee')->get();
+        return view('employees.presences.index', compact('presences'));
     }
 
     /**
