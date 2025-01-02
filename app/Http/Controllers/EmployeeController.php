@@ -34,13 +34,20 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:employees,email',
             'address' => 'required|string|max:100',
             'phone' => 'required|string|max:25',
+            'user_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|string|min:8',
         ]);
+
+        if ($request->hasFile('user_picture')) {
+            $imageName = time().'.'.$request->user_picture->extension();
+            $request->user_picture->move(public_path('images'), $imageName);
+            $validated['user_picture'] = 'images/'.$imageName;
+        }
 
         $validated['password'] = bcrypt($validated['password']);
         Employee::create($validated);
 
-        return redirect()->route('employees.index')->with('success', 'Employee added successfully!');
+        return redirect()->route('employees.create')->with('success', 'Employee added successfully!');
     }
 
     /**

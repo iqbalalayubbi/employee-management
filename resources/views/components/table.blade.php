@@ -1,4 +1,4 @@
-<div class="overflow-x-auto">
+<div class="overflow-x-auto my-5">
     <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
       <thead>
         <tr class="bg-gray-200">
