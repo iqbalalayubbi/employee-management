@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\EmployeePresence;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class EmployeePresenceController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        return view('employees-presences.create', compact('employees'));
     }
 
     /**
@@ -29,7 +31,17 @@ class EmployeePresenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'check_in' => 'required|date',
+            'check_out' => 'nullable|date',
+            'late_in' => 'nullable|integer',
+            'early_out' => 'nullable|integer',
+        ]);
+
+        EmployeePresence::create($validatedData);
+
+        return redirect()->route("employees-presences.create")->with('success', 'Presence added successfully!');
     }
 
     /**
@@ -59,8 +71,10 @@ class EmployeePresenceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeePresence $employeePresence)
+    public function destroy(string $id)
     {
-        //
+        $presence = EmployeePresence::findOrFail($id);
+        $presence->delete();
+        return redirect()->route('employees-presences.index')->with('success', 'Presence deleted successfully!');
     }
 }

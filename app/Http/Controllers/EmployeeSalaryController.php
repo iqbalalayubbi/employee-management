@@ -100,8 +100,9 @@ class EmployeeSalaryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeeSalary $employeeSalary)
+    public function destroy(string $id)
     {
+        $employeeSalary = EmployeeSalary::findOrFail($id);
         $employeeSalary->delete();
         return redirect()->route('employees-salaries.index')->with('success', 'Salary data deleted successfully');
     }

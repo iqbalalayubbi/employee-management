@@ -19,11 +19,11 @@
         <td class="py-4 px-6 text-gray-700">{{ $presence->late_in }}</td>
         <td class="py-4 px-6 text-gray-700">{{ $presence->early_out }}</td>
         <td class="py-4 px-6 text-center">
-          <a href="{{ route('employees.edit', $presence->id) }}" 
+          <a href="{{ route('employees-presences.edit', $presence->id) }}" 
              class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded">
             Edit
           </a>
-          <form action="{{ route('employees.destroy', $presence->id) }}" method="POST" class="inline-block">
+          <form action="{{ route('employees-presences.destroy', $presence->id) }}" method="POST" class="inline-block">
             @csrf
             @method('DELETE')
             <button type="submit" 
