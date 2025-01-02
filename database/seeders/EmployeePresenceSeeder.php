@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\EmployeePresence;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,7 +15,7 @@ class EmployeePresenceSeeder extends Seeder
      */
     public function run(): void
     {
-        $employees = \App\Models\Employee::all();
+        $employees = Employee::all();
 
         foreach ($employees as $employee) {
             EmployeePresence::create([

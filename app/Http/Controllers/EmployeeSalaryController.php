@@ -12,7 +12,8 @@ class EmployeeSalaryController extends Controller
      */
     public function index()
     {
-        //
+        $salaries = EmployeeSalary::with('employee')->get();
+        return view('employees.salaries.index', compact('salaries'));
     }
 
     /**
