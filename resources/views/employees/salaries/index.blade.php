@@ -4,7 +4,7 @@
     <h1 class="text-2xl font-bold mb-4 text-center">Salary Employee List</h1>
     
     <div class="flex gap-5 justify-between">
-      <a href="{{ route('employees.create') }}" 
+      <a href="{{ route('employees-salaries.create') }}" 
         class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded">
        Add Salary Employee
      </a>

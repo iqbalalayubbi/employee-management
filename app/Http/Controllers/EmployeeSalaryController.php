@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\EmployeeSalary;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class EmployeeSalaryController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        return view('employees.salaries.create', compact('employees'));
     }
 
     /**
@@ -29,7 +31,21 @@ class EmployeeSalaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'month' => 'required|integer',
+            'year' => 'required|integer',
+            'basic_salary' => 'required|numeric',
+            'bonus' => 'required|numeric',
+            'bpjs' => 'required|numeric',
+            'jp' => 'required|numeric',
+            'loan' => 'required|numeric',
+            'total_salary' => 'required|numeric',
+        ]);
+
+        EmployeeSalary::create($validated);
+
+        return redirect()->route('employees-salaries.create')->with('success', 'Salary data added successfully');
     }
 
     /**
