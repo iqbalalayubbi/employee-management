@@ -55,17 +55,29 @@ class EmployeePresenceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmployeePresence $employeePresence)
+    public function edit(string $id)
     {
-        //
+        $presence = EmployeePresence::findOrFail($id);
+        $employees = Employee::all();
+        return view('employees-presences.edit', compact('presence', 'employees'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EmployeePresence $employeePresence)
+    public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'check_in' => 'required|date',
+            'check_out' => 'nullable|date',
+            'late_in' => 'nullable|integer',
+            'early_out' => 'nullable|integer',
+        ]);
+
+        $presence = EmployeePresence::findOrFail($id);
+        $presence->update($validatedData);
+        return redirect()->route('employees-presences.index')->with('success', 'Presence updated successfully!');
     }
 
     /**

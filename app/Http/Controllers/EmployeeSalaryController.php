@@ -59,7 +59,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmployeeSalary $id)
+    public function edit(string $id)
     {
         // dd($employeeSalary->id);
         $employeeSalary = EmployeeSalary::findOrFail($id);
@@ -71,7 +71,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
 {
     // Validasi data yang dikirimkan
     $validated = $request->validate([
@@ -86,10 +86,8 @@ class EmployeeSalaryController extends Controller
         'total_salary' => 'required|numeric',
     ]);
 
-    // Mencari salary berdasarkan ID
     $salary = EmployeeSalary::findOrFail($id);
 
-    // Update data salary dengan data baru
     $salary->update($validated);
 
     // Redirect setelah update
